@@ -24,13 +24,16 @@ def splitnome(file_modifica_1):
     file_modifica_2 = file_modifica_1.split('-')
     artist = str(file_modifica_2[0])
     title = str(file_modifica_2[1])
-    etichetta = str(file_modifica_2[2])
+    try:
+        etichetta = str(file_modifica_2[2])
+    except:
+        etichetta = " "
     nome_provvisorio = artist+'-'+title
     return(nome_provvisorio, etichetta)
 
 
 def Sostituiscifeat(file_modifica_1):
-    file_modifica_2 = file_modifica_1.replace('feat.', "ft.")
+    file_modifica_2 = file_modifica_1.replace('feat.' or 'feat', "ft.")
     return (file_modifica_2)
 
 
@@ -118,16 +121,18 @@ def controllo_ID(file_name):
         ID = int(row[0]) + 1
     return(ID)
 
+
 def controllo_etichetta(file_name, etichetta):
-    Data_Base = sqlite3.connect(file_name)  # apre il file il sqlite con il nome che gli ho dato
+    Data_Base = sqlite3.connect(file_name)                                                                              # apre il file il sqlite con il nome che gli ho dato
     c = Data_Base.cursor()
     Nome_Table = "'Lista etichette'"
     c.execute("SELECT * FROM" + Nome_Table)
     rows = c.fetchall()
     for row in rows:
         esistente_etichetta = row[1]
-        if esistente_etichetta != etichetta:
-            nuova_etichetta = esistente_etichetta
+        if esistente_etichetta == etichetta:
+            print("l'etichetta e' gia' presente nel database")
+        nuova_etichetta = etichetta
     return(nuova_etichetta)
 
 
@@ -149,8 +154,9 @@ for a in ls:
         print(etichetta)
         ID = controllo_database(file_name)
         nuova_etichetta = controllo_etichetta(file_name, etichetta)
-        genera_database(file_name, ID, nuova_etichetta)
-        ID = ID + 1
+        if nuova_etichetta != "l'etichetta e' gia' presente nel database":
+            genera_database(file_name, ID, nuova_etichetta)
+            ID = ID + 1
         file_modifica_2 = Sostituiscifeat(nome_provvisorio[0])                                                             #sostituisce feat. con ft.
         file_modifica_3 = SostituisciAmp(file_modifica_2)                                                               #sostituisce amp con &
         file_modifica_4 = OriginalMix(file_modifica_3)                                                                  #formato mix originale
