@@ -2,10 +2,8 @@
 # Filename    : Rinomina_file.py
 # Description : programma per rinominare i file mp3
 # Author      : Andrea
-# modification: 21/06/2020
+# modification: 06/07/2020
 # note        : Creata la parte del database
-#               non funziona la parte di controllo del dato se esiste gia' nel database
-#               controllare la funzione di inserimento del ft.
 #               rende il programma eseguibile negli altri con la dicitura if __main__
 ########################################################################
 # Importo le librerie che mi interessano
@@ -131,42 +129,44 @@ def controllo_etichetta(file_name, etichetta):
     for row in rows:
         esistente_etichetta = row[1]
         if esistente_etichetta == etichetta:
-            print("l'etichetta e' gia' presente nel database")
-        nuova_etichetta = etichetta
+            nuova_etichetta = "l'etichetta e' gia' presente nel database"
+            break
+        else:
+            nuova_etichetta = etichetta
     return(nuova_etichetta)
 
 
-
 #main proram
-start_time = time.time()
-path = '/Volumes/Dati/Andrea/Musica/Tracce da separare/'
-ls = os.listdir(path)
-file_name = 'List_Label.db'
-for a in ls:
-    print(a)
-    if a =='.DS_Store':
-        print("il file c'é ma non posso cancellarlo")
-    else:
-        (file, ext) = os.path.splitext(a)                                                                               #splitta il nome dall'estensione
-        file_modifica_1 = (MettiSpazio(file))                                                                           #rimuove gli underscore dal nome del file
-        nome_provvisorio = splitnome(file_modifica_1)                                                                   #crea il nuovo nome
-        etichetta = (nome_provvisorio[1])
-        print(etichetta)
-        ID = controllo_database(file_name)
-        nuova_etichetta = controllo_etichetta(file_name, etichetta)
-        if nuova_etichetta != "l'etichetta e' gia' presente nel database":
-            genera_database(file_name, ID, nuova_etichetta)
-            ID = ID + 1
-        file_modifica_2 = Sostituiscifeat(nome_provvisorio[0])                                                             #sostituisce feat. con ft.
-        file_modifica_3 = SostituisciAmp(file_modifica_2)                                                               #sostituisce amp con &
-        file_modifica_4 = OriginalMix(file_modifica_3)                                                                  #formato mix originale
-        file_modifica_5 = ExtendedMix(file_modifica_4)                                                                  #formato extended mix
-        file_modifica_6 = RadioEdit(file_modifica_5)                                                                    #formato radio edit
-        file_modifica_7 = Apostrofo(file_modifica_6)                                                                    #aggiunge il carattere speciale '
-        file_modifica_8 = InstrumentalMix(file_modifica_7)                                                              #formato instrumental mix
-        print(file_modifica_8)
-        src = path + a                                                                                                  # crea la sorgente dove andare a rinominare il file
-        dst = path + file_modifica_8+'.mp3'                                                                             # crea la destinazione con il nuovo nome del file
-        os.rename(src, dst)                                                                                             # rinomina il file
-end_time = time.time()
-print("Total execution time: {}".format(end_time - start_time))
+if __name__ == "__main__":
+    start_time = time.time()
+    path = '/Volumes/Dati/Andrea/Musica/Tracce da separare/'
+    ls = os.listdir(path)
+    file_name = 'List_Label.db'
+    for a in ls:
+        print(a)
+        if a =='.DS_Store':
+            print("il file c'é ma non posso cancellarlo")
+        else:
+            (file, ext) = os.path.splitext(a)                                                                               #splitta il nome dall'estensione
+            file_modifica_1 = (MettiSpazio(file))                                                                           #rimuove gli underscore dal nome del file
+            nome_provvisorio = splitnome(file_modifica_1)                                                                   #crea il nuovo nome
+            etichetta = (nome_provvisorio[1])
+            #print(etichetta)
+            ID = controllo_database(file_name)
+            nuova_etichetta = controllo_etichetta(file_name, etichetta)
+            if nuova_etichetta != "l'etichetta e' gia' presente nel database":
+                genera_database(file_name, ID, nuova_etichetta)
+                ID = ID + 1
+            file_modifica_2 = Sostituiscifeat(nome_provvisorio[0])                                                             #sostituisce feat. con ft.
+            file_modifica_3 = SostituisciAmp(file_modifica_2)                                                               #sostituisce amp con &
+            file_modifica_4 = OriginalMix(file_modifica_3)                                                                  #formato mix originale
+            file_modifica_5 = ExtendedMix(file_modifica_4)                                                                  #formato extended mix
+            file_modifica_6 = RadioEdit(file_modifica_5)                                                                    #formato radio edit
+            file_modifica_7 = Apostrofo(file_modifica_6)                                                                    #aggiunge il carattere speciale '
+            file_modifica_8 = InstrumentalMix(file_modifica_7)                                                              #formato instrumental mix
+            #print(file_modifica_8)
+            src = path + a                                                                                                  # crea la sorgente dove andare a rinominare il file
+            dst = path + file_modifica_8+'.mp3'                                                                             # crea la destinazione con il nuovo nome del file
+            os.rename(src, dst)                                                                                             # rinomina il file
+    end_time = time.time()
+    print("Total execution time: {}".format(end_time - start_time))

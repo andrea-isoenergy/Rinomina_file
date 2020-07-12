@@ -7,7 +7,7 @@
 #               programma per la gestione dei mie file mp3
 ########################################################################
 # Importo le librerie che mi interessano
-#import Rinomina_files.R1
+import Rinomina_files
 
 
 #definisco le funzioni che mi servono
@@ -18,7 +18,6 @@
 print('Buongiorno Andrea, cosa vuoi fare? \n')
 azione = input('Scegli tra queste due opzioni: Rinomina o Sposta \n')
 if azione.capitalize() == 'Rinomina':
-    #Rinomina_files
-    pass
+    Rinomina_files
 else:
     print('non ho ancora scritto questa parte di programma')
