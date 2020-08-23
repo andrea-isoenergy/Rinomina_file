@@ -2,12 +2,13 @@
 # Filename    : Gestion_Tags.py
 # Description : programma che mi permette di leggere i tag dei file MP3
 # Author      : Andrea Grosso
-# Date        : 5 Agosto 2020
-# Revision    : R2
+# Date        : 23 Agosto 2020
+# Revision    : R3
 # note        : Uso le librerie mp3_tagger e mutagen
 #             : ho trovato il metodo di copiare i file e di spostarli
 #             : riesco anche a spostarli sull'hard disk
 #             : Inizio ad aggiungere tutti i generi
+#             : Aggiunto progressive house che mancava
 ########################################################################
 # Importo le librerie che mi interessano
 import os
@@ -84,6 +85,11 @@ for a in ls:
                 if tags['genre'] == 'Techno' or tags['genre'] == 'Techno\x00':
                     # Dest = '/Volumes/Back up 2/Tribal House'
                     Dest = '/Volumes/Dati/Techno'
+                    # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
+                    shutil.move((path + '/' + a), Dest)
+                if tags['genre'] == 'Progressive House' or tags['genre'] == 'Progressive House\x00':
+                    # Dest = '/Volumes/Back up 2/Tribal House'
+                    Dest = '/Volumes/Dati/Progressive House'
                     # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
                     shutil.move((path + '/' + a), Dest)
             except:
