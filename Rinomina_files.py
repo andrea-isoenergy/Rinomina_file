@@ -1,5 +1,5 @@
 #############################################################################
-# Filename    : Rinomina_file.py
+# Filename    : Rinomina_files.py
 # Description : programma per rinominare i file mp3
 # Author      : Andrea
 # modification: 06/07/2020
@@ -136,10 +136,9 @@ def controllo_etichetta(file_name, etichetta):
     return(nuova_etichetta)
 
 
-#main proram
-if __name__ == "__main__":
+def Rinomina():
     start_time = time.time()
-    path = '/Volumes/Dati/Andrea/Musica/Tracce da separare/'
+    path = '/Volumes/Dati/Andrea/Musica/Tracce da separare back-up/'
     ls = os.listdir(path)
     file_name = 'List_Label.db'
     for a in ls:
