@@ -12,13 +12,14 @@
 #             : Aggiunto la parte di Main
 #             : aggiunto la cartella Minimal
 #             : Definito la funzione per poterlo richiamare dal programma principale
+#             : aggiunto la cartella Tropical House, Electro House, Future House, Chill Out e rimosso parte riguardo wave files
 ########################################################################
 # Importo le librerie che mi interessano
 import os
 from mp3_tagger import MP3File, VERSION_1, VERSION_2, VERSION_BOTH
 import time
-import eyed3
-from mutagen.id3 import ID3, TIT2
+#import eyed3
+#from mutagen.id3 import ID3, TIT2
 import mutagen
 import shutil
 # Definisco le funzioni che mi servono
@@ -36,7 +37,8 @@ def ControlloSposto():
             #print(file)
             #print(ext)
             if ext == '.wav':
-                pass
+                Dest = '/Volumes/Dati/File Wave'
+                shutil.move((path + '/' + a), Dest)
             else:
                 try:
                     Tags = (mutagen.File(path+'/'+a).tags.getall("GRP1"))
@@ -97,6 +99,26 @@ def ControlloSposto():
                     if tags['genre'] == 'Minimal' or tags['genre'] == 'Minimal\x00':
                         # Dest = '/Volumes/Back up 2/Tribal House'
                         Dest = '/Volumes/Dati/Minimal'
+                        # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
+                        shutil.move((path + '/' + a), Dest)
+                    if tags['genre'] == 'Tropical House' or tags['genre'] == 'Tropical House\x00':
+                        # Dest = '/Volumes/Back up 2/Tribal House'
+                        Dest = '/Volumes/Dati/Tropical House'
+                        # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
+                        shutil.move((path + '/' + a), Dest)
+                    if tags['genre'] == 'Electro House' or tags['genre'] == 'Electro House\x00':
+                        # Dest = '/Volumes/Back up 2/Tribal House'
+                        Dest = '/Volumes/Dati/Electro House'
+                        # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
+                        shutil.move((path + '/' + a), Dest)
+                    if tags['genre'] == 'Future House' or tags['genre'] == 'Future House\x00':
+                        # Dest = '/Volumes/Back up 2/Tribal House'
+                        Dest = '/Volumes/Dati/Future House'
+                        # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
+                        shutil.move((path + '/' + a), Dest)
+                    if tags['genre'] == 'Chill Out' or tags['genre'] == 'Chill Out\x00':
+                        # Dest = '/Volumes/Back up 2/Tribal House'
+                        Dest = '/Volumes/Dati/Chill Out'
                         # if Tags[0] == "Vocal" or Tags[0] == 'Instrumental':
                         shutil.move((path + '/' + a), Dest)
                 except:
